@@ -15,11 +15,21 @@ return [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+
     'controllerMap' => [
         'fixture' => [
-            'class' => 'yii\console\controllers\FixtureController',
-            'namespace' => 'common\fixtures',
-          ],
+            'class' => 'yii\faker\FixtureController',
+            'language' => 'ru_RU',
+            'templatePath' => '@tests/fixtures/templates',
+            'fixtureDataPath' => '@tests/fixtures/data',
+            'namespace' => 'tests\fixtures'
+        ],
+        'migrate' => [
+            'class'               => 'yii\console\controllers\MigrateController',
+            'migrationNamespaces' => [
+                'yii\queue\db\migrations'
+            ],
+        ],
     ],
     'components' => [
         'log' => [

@@ -1,0 +1,11 @@
+[Unit]
+Description=Yii Queue New Project Worker %I
+
+[Service]
+User=root
+Group=root
+ExecStart=/usr/bin/php /var/www/newprojectuser/data/www/newproject/yii queue/listen --verbose
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

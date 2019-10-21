@@ -14,6 +14,8 @@ Yii::setAlias('console', dirname(dirname(__DIR__)) . '/console');
 Yii::setAlias('api', dirname(dirname(__DIR__)) . '/api');
 //  /static
 Yii::setAlias('static', dirname(dirname(__DIR__)) . '/static');
+// /common/tests
+Yii::setAlias('tests', dirname(__DIR__) . "/tests");
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
     $_SERVER['HTTPS'] = 'on';
