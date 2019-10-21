@@ -34,7 +34,7 @@ class Generator extends \yii\gii\Generator
     public $ns = 'app\models';
     public $tableName;
     public $modelClass;
-    public $baseClass = '\zakovat\components\ActiveRecord';
+    public $baseClass = '\yii\db\ActiveRecord';
     public $generateRelations = self::RELATIONS_ALL;
     public $generateRelationsFromCurrentSchema = true;
     public $generateLabelsFromComments = false;
@@ -54,7 +54,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'Model Generator With Swagger';
+        return 'Model Generator (with Swagger)';
     }
 
     /**

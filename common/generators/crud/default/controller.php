@@ -36,9 +36,9 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
 use Yii;
 use <?= ltrim($generator->modelClass, '\\') ?>;
 <?php if (!empty($generator->searchModelClass)): ?>
-    use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
+use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
 <?php else: ?>
-    use yii\data\ActiveDataProvider;
+use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
@@ -327,7 +327,6 @@ use <?= $generator->actionRestoreClass ?>;
     */
 
 <?php endif; ?>
-
 <?php if ($generator->withDelete): ?>
     /**
     * @OA\Delete(
@@ -395,8 +394,6 @@ use <?= $generator->actionRestoreClass ?>;
     */
 <? endif; ?>
 <?php if ($generator->withRestore): ?>
-
-
     /**
     * @OA\Put(
     *   path="<?= $generator->path ?>/<?= Inflector::camel2id($modelClass) ?>/restore/{id}",
@@ -470,65 +467,65 @@ use <?= $generator->actionRestoreClass ?>;
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
 
-/**
-* @var string
-*/
-public $modelClass = <?= $modelClass ?>::class;
-public $modelSearch = <?= $searchModelClass ?>::class;
+    /**
+    * @var string
+    */
+    public $modelClass = <?= $modelClass ?>::class;
+    public $modelSearch = <?= $searchModelClass ?>::class;
 
 
-/**
-* @return array
-*/
-public function actions()
-{
-return [
-<?php if ($generator->withView): ?>
-    'view'    => [
-    'class'      => <?= StringHelper::basename($generator->actionViewClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    ],
-<?php endif; ?>
-<?php if ($generator->withCreate): ?>
-    'create'  => [
-    'class'      => <?= StringHelper::basename($generator->actionCreateClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    ],
-<?php endif; ?>
-<?php if ($generator->withUpdate): ?>
-    'update'  => [
-    'class'      => <?= StringHelper::basename($generator->actionUpdateClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    ],
-<?php endif; ?>
-<?php if ($generator->withDelete): ?>
-    'delete'  => [
-    'class'      => <?= StringHelper::basename($generator->actionDeleteClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    ],
-<?php endif; ?>
-<?php if ($generator->withRestore): ?>
-    'restore' => [
-    'class'      => <?= StringHelper::basename($generator->actionRestoreClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    ],
-<?php endif; ?>
-<?php if ($generator->withIndex): ?>
-    'index'   => [
-    'class'      => <?= StringHelper::basename($generator->actionIndexClass) ?>::class,
-    'modelClass' => $this->modelClass,
-    'dataFilter' => [
-    'class'       => \yii\data\ActiveDataFilter::class,
-    'searchModel' => $this->modelSearch
-    ]
-    ],
-<?php endif; ?>
+    /**
+    * @return array
+    */
+    public function actions()
+    {
+        return [
+        <?php if ($generator->withView): ?>
+            'view'    => [
+                'class'      => <?= StringHelper::basename($generator->actionViewClass) ?>::class,
+                'modelClass' => $this->modelClass,
+            ],
+        <?php endif; ?>
+        <?php if ($generator->withCreate): ?>
+            'create'  => [
+                'class'      => <?= StringHelper::basename($generator->actionCreateClass) ?>::class,
+                'modelClass' => $this->modelClass,
+            ],
+        <?php endif; ?>
+        <?php if ($generator->withUpdate): ?>
+            'update'  => [
+                'class'      => <?= StringHelper::basename($generator->actionUpdateClass) ?>::class,
+                'modelClass' => $this->modelClass,
+            ],
+        <?php endif; ?>
+        <?php if ($generator->withDelete): ?>
+            'delete'  => [
+                'class'      => <?= StringHelper::basename($generator->actionDeleteClass) ?>::class,
+                'modelClass' => $this->modelClass,
+            ],
+        <?php endif; ?>
+        <?php if ($generator->withRestore): ?>
+            'restore' => [
+                'class'      => <?= StringHelper::basename($generator->actionRestoreClass) ?>::class,
+                'modelClass' => $this->modelClass,
+            ],
+        <?php endif; ?>
+        <?php if ($generator->withIndex): ?>
+            'index'   => [
+                'class'      => <?= StringHelper::basename($generator->actionIndexClass) ?>::class,
+                'modelClass' => $this->modelClass,
+                'dataFilter' => [
+                    'class'       => \yii\data\ActiveDataFilter::class,
+                    'searchModel' => $this->modelSearch
+                ]
+            ],
+        <?php endif; ?>
 
-'options' => [
-'class'             => 'yii\rest\OptionsAction',
-'resourceOptions'   => ['GET', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'POST'],
-'collectionOptions' => ['GET', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'POST'],
-],
-];
-}
+        'options' => [
+            'class'             => 'yii\rest\OptionsAction',
+                'resourceOptions'   => ['GET', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'POST'],
+                'collectionOptions' => ['GET', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'POST'],
+            ],
+        ];
+    }
 }

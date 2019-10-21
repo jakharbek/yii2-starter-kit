@@ -15,8 +15,9 @@
 /* @var $relations array list of relations (name => relation declaration) */
 
 echo "<?php\n";
+if (!empty($relations)):
+    $relationsVars = [];
 ?>
-
 namespace <?= $generator->ns ?>;
 
 use Yii;
@@ -24,22 +25,18 @@ use Yii;
 /**
 * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
 *
-
-<?php foreach ($properties as $property => $data): ?>
-    * @property <?= "{$data['type']} \${$property}" . ($data['comment'] ? ' ' . strtr($data['comment'], ["\n" => ' ']) : '') . "\n" ?>
-<?php endforeach; ?>
-<?php if (!empty($relations)): ?>
-    <?php $relationsVars = []; ?>
-    *
-    <?php foreach ($relations as $name => $relation): ?><?php $relationsVars[] = lcfirst($name); ?>
-        * @property <?= $relation[1] . ($relation[2] ? '[]' : '') . ' $' . lcfirst($name) . "\n" ?>
-    <?php endforeach; ?>
-<?php endif; ?>
-*/
-/**
 * @OA\Schema(
 *     description="<?= count($relationsVars) > 0 ? "include=" . implode(",", $relationsVars) : "" ?>"
 * )
+<?php foreach ($properties as $property => $data): ?>
+* @property <?= "{$data['type']} \${$property}" . ($data['comment'] ? ' ' . strtr($data['comment'], ["\n" => ' ']) : '') . "\n" ?>
+<?php endforeach; ?>
+
+*
+    <?php foreach ($relations as $name => $relation): ?><?php $relationsVars[] = lcfirst($name); ?>
+* @property <?= $relation[1] . ($relation[2] ? '[]' : '') . ' $' . lcfirst($name) . "\n" ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
@@ -59,13 +56,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     */
 <?php endforeach; ?>
 
-/**
-* {@inheritdoc}
-*/
-public static function tableName()
-{
-return '<?= $generator->generateTableName($tableName) ?>';
-}
+    /**
+    * {@inheritdoc}
+    */
+    public static function tableName()
+    {
+        return '<?= $generator->generateTableName($tableName) ?>';
+    }
 <?php if ($generator->db !== 'db'): ?>
 
     /**
@@ -73,29 +70,29 @@ return '<?= $generator->generateTableName($tableName) ?>';
     */
     public static function getDb()
     {
-    return Yii::$app->get('<?= $generator->db ?>');
+        return Yii::$app->get('<?= $generator->db ?>');
     }
 <?php endif; ?>
 
 /**
-* {@inheritdoc}
-*/
-public function rules()
-{
-return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
-}
+    * {@inheritdoc}
+    */
+    public function rules()
+    {
+        return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
+    }
 
-/**
-* {@inheritdoc}
-*/
-public function attributeLabels()
-{
-return [
-<?php foreach ($labels as $name => $label): ?>
-    <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
-<?php endforeach; ?>
-];
-}
+    /**
+    * {@inheritdoc}
+    */
+    public function attributeLabels()
+    {
+        return [
+            <?php foreach ($labels as $name => $label): ?>
+                <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
+            <?php endforeach; ?>
+        ];
+    }
 <?php foreach ($relations as $name => $relation): ?>
 
     /**
@@ -103,7 +100,7 @@ return [
     */
     public function get<?= $name ?>()
     {
-    <?= $relation[0] . "\n" ?>
+        <?= $relation[0] . "\n" ?>
     }
 <?php endforeach; ?>
 <?php if ($queryClassName): ?>
@@ -117,7 +114,7 @@ return [
     */
     public static function find()
     {
-    return new <?= $queryClassFullName ?>(get_called_class());
+        return new <?= $queryClassFullName ?>(get_called_class());
     }
 
 <?php endif; ?>
@@ -126,11 +123,11 @@ return [
 <?php if (count($relationsVars) > 0): ?>
     public function extraFields()
     {
-    $fields = parent::extraFields();
-    <?php foreach ($relationsVars as $var): ?>
-        $fields['<?= $var ?>'] = "<?= $var ?>";
-    <?php endforeach; ?>
-    return $fields;
+        $fields = parent::extraFields();
+        <?php foreach ($relationsVars as $var): ?>
+            $fields['<?= $var ?>'] = "<?= $var ?>";
+        <?php endforeach; ?>
+        return $fields;
     }
 <?php endif; ?>
 }

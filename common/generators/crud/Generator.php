@@ -48,9 +48,9 @@ class Generator extends \yii\gii\Generator
 {
     public $modelClass;
     public $controllerClass;
-    public $baseControllerClass = '\zakovat\api\v1\controllers\ApiController';
+    public $baseControllerClass = '\api\modules\v1\DefaultController';
     public $searchModelClass = '';
-    public $path = '/v1/zakovat';
+    public $path = '/v1';
     public $tag = "";
     public $withRestore = true;
     public $withDelete = true;
@@ -63,7 +63,7 @@ class Generator extends \yii\gii\Generator
     public $actionDeleteClass = 'yii\rest\DeleteAction';
     public $actionViewClass = 'yii\rest\ViewAction';
     public $actionIndexClass = 'yii\rest\IndexAction';
-    public $actionRestoreClass = '\zakovat\api\actions\RestoreAction';
+    public $actionRestoreClass = '\api\actions\RestoreAction';
 
     /**
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
@@ -82,7 +82,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'API CRUD Generator';
+        return 'CRUD Generator (API)';
     }
 
     /**
