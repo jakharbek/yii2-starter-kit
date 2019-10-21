@@ -47,7 +47,10 @@ return [
                     'templates' => [
                         'swagger' => '@common/generators/crud/default',
                     ]
-                ]
+                ],
+                'fixture' => [
+                    'class' => 'elisdn\gii\fixture\Generator',
+                ],
             ],
         ],
     ],
