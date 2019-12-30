@@ -5,7 +5,6 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'bootstrap'  => [
-        'queue'
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
